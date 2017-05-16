@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Pokemon list</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <div th:replace="fragments/header :: header"></div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12 col-lg12" th:if="${not #lists.isEmpty(pokemons)}">
+                    <div class="col-lg-2 col-md-3 col-sm-6" th:each="pokemon : ${pokemons}">
+                        <a th:href="@{|/pokemon?id=${pokemon.id}|}">
+                        <div class="panel panel-success">
+                            <div class="panel-heading">
+                                <h3><span th:text="${pokemon.name}"></span></h3>
+                            </div>
+                            <div class="panel-body">
+                                <img style="max-width:100%;" th:src="${pokemon.imageUrl}" heigth="100px" width="150px" src="https://img.pokemondb.net/artwork/bulbasaur.jpg"/>
+                            </div>
+                        </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

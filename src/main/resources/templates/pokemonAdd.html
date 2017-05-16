@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Ajouter Pokemon</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <div th:replace="fragments/header :: header"></div>
+
+        <div class="container">
+            <form class="form-horizontal" th:object="${pokemon}" method="post">
+
+                <div class="form-group" th:classappend="${#fields.hasErrors('name')}? 'has-error'">
+                    <label for="inputName" class="col-sm-2 control-label">Nom</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" th:field="*{name}" id="inputName" placeholder="Name" />
+                    </div>
+                    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="has-error">Name Error</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="selectType" class="col-sm-2 control-label">Type</label>
+                    <div class="col-sm-6">
+                        <select id="selectType" th:field="*{pokemonType}">>
+                            <option th:each="type : ${T(com.dojo.pokemonstore.domain.PokemonType).values()}"
+                                    th:value="${type}"
+                                    th:text="${type}">
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group" th:classappend="${#fields.hasErrors('height')}? 'has-error'">
+                    <label for="inputHeight" class="col-sm-2 control-label">Hauteur</label>
+                    <div class="col-sm-6">
+                        <input type="number" id="inputHeight" step="0.1" min="0" class="form-control" th:field="*{height}" placeholder="1.80" />
+                    </div>
+                    <span th:if="${#fields.hasErrors('height')}" th:errors="*{height}" class="has-error">Height Error</span>
+                </div>
+
+                <div class="form-group" th:classappend="${#fields.hasErrors('weight')}? 'has-error'">
+                    <label for="inputWeight" class="col-sm-2 control-label">Poids</label>
+                    <div class="col-sm-6">
+                        <input type="number" id="inputWeight" step="0.1" min="0" class="form-control" th:field="*{weight}" placeholder="1.80" />
+                    </div>
+                    <span th:if="${#fields.hasErrors('weight')}" th:errors="*{weight}" class="has-error">Weoght Error</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputUrl" class="col-sm-2 control-label">Url image</label>
+                    <div class="col-sm-6">
+                        <input type="text" id="inputUrl" class="form-control" th:field="*{imageUrl}" placeholder="http://image_url" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" value="submit" class="btn btn-primary" th:text="#{pokemonAdd.save}">Enregistrer</button>
+                    </div>
+                </div>
+            </form>
+            <a href="#" th:href="@{/pokemon/list}" class="btn btn-info" role="button">Voir la liste des pokemons</a>
+        </div>
+    </body>
+</html>
